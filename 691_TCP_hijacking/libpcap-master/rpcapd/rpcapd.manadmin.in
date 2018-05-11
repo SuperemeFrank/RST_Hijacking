@@ -1,0 +1,134 @@
+.\"  rpcapd.8
+.\"
+.\"  Copyright (c) 2018
+.\"  NetGroup, Politecnico di Torino (Italy)
+.\"  All rights reserved.
+.\" 
+.\"  Redistribution and use in source and binary forms, with or without
+.\"  modification, are permitted provided that the following conditions
+.\"  are met:
+.\" 
+.\"  1. Redistributions of source code must retain the above copyright
+.\"  notice, this list of conditions and the following disclaimer.
+.\"  2. Redistributions in binary form must reproduce the above copyright
+.\"  notice, this list of conditions and the following disclaimer in the
+.\"  documentation and/or other materials provided with the distribution.
+.\"  3. Neither the name of the Politecnico di Torino nor the names of its
+.\"  contributors may be used to endorse or promote products derived from
+.\"  this software without specific prior written permission.
+.\" 
+.\"  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+.\"  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+.\"  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+.\"  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+.\"  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+.\"  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+.\"  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+.\"  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+.\"  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+.\"  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+.\"  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+.\"
+.TH RPCAPD @MAN_ADMIN_COMMANDS@ "April 20, 2018"
+.SH NAME
+rpcapd \- capture daemon to be controlled by a remote libpcap application
+.SH SYNOPSIS
+.na
+rpcapd
+[
+.B \-b
+.I address
+] [
+.B \-p
+.I port
+] [
+.B \-4
+] [
+.B \-l
+.I host_list
+]
+.br
+.ti +8
+[
+.B \-a
+.IR host , port
+] [
+.B \-n
+] [
+.B \-v
+] [
+.B \-d
+] [
+.B \-i
+] [
+.B \-s
+.I file
+]
+.br
+.ti +8
+[
+.B \-f
+.I file
+]
+.br
+.ad
+.SH DESCRIPTION
+.LP
+\fIRpcapd\fP is a daemon (Unix) or service (Win32) that allows the capture
+and filter part of libpcap to be run on a remote system.
+.SH OPTIONS
+.TP
+.BI \-b " address"
+the address to bind to (either numeric or literal).
+Default: binds to all local IPv4 and IPv6 addresses
+.TP
+.BI \-p " port"
+the port to bind to.
+Default: binds to port 2002
+.TP
+.B \-4
+use only IPv4.
+Default: use both IPv4 and IPv6 waiting sockets
+.TP
+.BI -l " host_list"
+a file that contains a list of hosts that are allowed
+to connect to this server (if more than one, list them one
+per line).
+We suggest to use literal names (instead of numeric ones)
+in order to avoid problems with different address families.
+.TP
+.B \-n
+permit NULL authentication (usually used with '\-l')
+.TP
+.BI \-a " host" , "port"
+run in active mode when connecting to 'host' on port 'port'
+In case
+.I port
+is omitted, the default port (2003) is used.
+.TP
+.B -v
+run in active mode only (default: if
+.B \-a
+is specified, it accepts passive connections as well).
+.TP
+.B \-d
+run in daemon mode (UNIX only) or as a service (Win32 only)
+Warning (Win32): this switch is provided automatically when
+the service is started from the control panel
+.TP
+.B \-i
+run in inetd mode (UNIX only).
+.TP
+.BI \-s " file"
+save the current configuration to file
+.TP
+.BI \-f " file"
+load the current configuration from file; all switches
+specified from the command line are ignored
+.TP
+.B \-h
+print this help screen
+.br
+.ad
+.SH "SEE ALSO"
+pcap(3PCAP)
